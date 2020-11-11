@@ -24,11 +24,17 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    INCREMENT_COUNT(state) {
-      state.count += 1
+    INCREMENT_COUNT(state, value) {
+      state.count += value
     }
   },
-  actions: {},
+  actions: {
+    updateCount({ state, commit }, incrementBy) {
+      if (state.user) {
+        commit('INCREMENT_BY', incrementBy)
+      }
+    }
+  },
   getters: {
     categoriesLength: state => {
       return state.categories.length
