@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import EventService from '@/services/EventService.js'
 
 Vue.use(Vuex)
 
@@ -21,11 +22,15 @@ export default new Vuex.Store({
       { id: 2, text: '...', done: false },
       { id: 3, text: '...', done: true },
       { id: 4, text: '...', done: false }
-    ]
+    ],
+    events: []
   },
   mutations: {
     INCREMENT_COUNT(state, value) {
       state.count += value
+    },
+    ADD_EVENT(state, event) {
+      state.events.push(event)
     }
   },
   actions: {
@@ -33,6 +38,10 @@ export default new Vuex.Store({
       if (state.user) {
         commit('INCREMENT_BY', incrementBy)
       }
+    },
+    createEvent({ commit }, event) {
+      EventService.postEvent(event)
+      commit('ADD_EVENT', event)
     }
   },
   getters: {
